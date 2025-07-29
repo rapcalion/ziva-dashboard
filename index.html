@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ziva Jewellery: Interactive Project Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-button.active {
+            border-bottom: 2px solid #c8a2c8; /* A soft purple for the brand */
+            color: #4a5568;
+            font-weight: 600;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        /* Timeline specific styles */
+        .timeline-item {
+            border-left: 3px solid #e2e8f0;
+        }
+        .timeline-item .dot {
+            position: absolute;
+            left: -8.5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 3px solid #c8a2c8;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">ZIVA <span class="text-purple-500">JEWELLERY</span></h1>
+            <p class="text-lg text-gray-600 mt-2">Digital Marketing Project Dashboard</p>
+            <p class="text-sm text-gray-500">Presented by Hegxcorp</p>
+        </header>
+
+        <!-- Tabs -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="tab-buttons">
+                <button class="tab-button active text-gray-500 py-4 px-6 block hover:text-gray-700 focus:outline-none" data-tab="overview">
+                    <i class="fas fa-tachometer-alt mr-2"></i>Overview
+                </button>
+                <button class="tab-button text-gray-500 py-4 px-6 block hover:text-gray-700 focus:outline-none" data-tab="scope">
+                    <i class="fas fa-cogs mr-2"></i>Scope of Services
+                </button>
+                 <button class="tab-button text-gray-500 py-4 px-6 block hover:text-gray-700 focus:outline-none" data-tab="deliverables">
+                    <i class="fas fa-box-open mr-2"></i>Deliverables
+                </button>
+                <button class="tab-button text-gray-500 py-4 px-6 block hover:text-gray-700 focus:outline-none" data-tab="timeline">
+                    <i class="fas fa-calendar-alt mr-2"></i>Project Timeline
+                </button>
+                <button class="tab-button text-gray-500 py-4 px-6 block hover:text-gray-700 focus:outline-none" data-tab="budget">
+                    <i class="fas fa-wallet mr-2"></i>Monthly Budget
+                </button>
+                <button class="tab-button text-gray-500 py-4 px-6 block hover:text-gray-700 focus:outline-none" data-tab="projections">
+                    <i class="fas fa-chart-line mr-2"></i>Projections
+                </button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="tab-contents">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <h2 class="text-3xl font-bold mb-6 text-gray-700">Project Overview</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-600">Project Goal</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            To provide a comprehensive, integrated digital marketing solution for Ziva Jewellery. The primary objective is to elevate Ziva's online brand presence, enhance digital customer acquisition, and build sustained engagement across all relevant digital touchpoints to support the brand's digital commerce objectives.
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                         <h3 class="text-xl font-semibold mb-4 text-purple-600">Contact Information</h3>
+                        <p class="text-gray-600"><strong>Project Lead:</strong> Akshay Jadia</p>
+                        <p class="text-gray-600"><strong>Agency:</strong> Hegxcorp</p>
+                        <p class="text-gray-600"><strong>Email:</strong> akshay@hegxcorp.com</p>
+                        <p class="text-gray-600"><strong>Phone:</strong> +91 83692 07836</p>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold mt-10 mb-6 text-gray-700">Key Objectives</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Key Objectives Cards -->
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-bullhorn text-2xl text-purple-500 mr-4"></i>
+                            <h4 class="font-semibold text-lg">Brand Awareness</h4>
+                        </div>
+                        <p class="text-gray-600">Amplify brand visibility and recognition across India and globally, targeting premium and bridal jewellery buyers.</p>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-users text-2xl text-purple-500 mr-4"></i>
+                            <h4 class="font-semibold text-lg">Community Engagement</h4>
+                        </div>
+                        <p class="text-gray-600">Build a loyal and interactive digital community around the Ziva brand.</p>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-chart-line text-2xl text-purple-500 mr-4"></i>
+                            <h4 class="font-semibold text-lg">Traffic Growth</h4>
+                        </div>
+                        <p class="text-gray-600">Increase high-intent traffic to the website through SEO, paid media, and social media.</p>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-newspaper text-2xl text-purple-500 mr-4"></i>
+                            <h4 class="font-semibold text-lg">Media Visibility</h4>
+                        </div>
+                        <p class="text-gray-600">Secure earned media placements in key fashion, lifestyle, and jewellery publications through consistent PR efforts.</p>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-shopping-cart text-2xl text-purple-500 mr-4"></i>
+                            <h4 class="font-semibold text-lg">Customer Acquisition</h4>
+                        </div>
+                        <p class="text-gray-600">Drive lead generation and online sales through precision-targeted campaigns and conversion optimization.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scope of Services Tab -->
+            <div id="scope" class="tab-content">
+                <h2 class="text-3xl font-bold mb-6 text-gray-700">Scope of Services</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Service Cards -->
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg mb-2 text-purple-600">A. Strategy & Planning</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Brand Audit</li>
+                            <li>Competitor & Market Research</li>
+                            <li>Customer Persona Development</li>
+                            <li>Integrated Campaign Calendar</li>
+                            <li>Channel & Funnel Strategy</li>
+                            <li>Brand Messaging Framework</li>
+                            <li>KPI Framework & Tools Setup</li>
+                        </ul>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg mb-2 text-purple-600">B. Social Media Marketing</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Channel Strategy (IG, FB, Pinterest)</li>
+                            <li>Monthly Content Planning</li>
+                            <li>Production Coordination</li>
+                            <li>Daily Publishing & Engagement</li>
+                            <li>Influencer Engagement (20-30)</li>
+                            <li>Trend Hacking & Virality</li>
+                            <li>Performance Analysis</li>
+                        </ul>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg mb-2 text-purple-600">C. Paid Media Advertising</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Media Planning & Budgeting</li>
+                            <li>Creative Strategy & A/B Testing</li>
+                            <li>Meta Campaigns (Awareness, Retargeting)</li>
+                            <li>YouTube Campaigns</li>
+                            <li>Landing Page Optimization</li>
+                            <li>Budget & Bidding Management</li>
+                        </ul>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg mb-2 text-purple-600">D. PR & Influencer Outreach</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Media Strategy & Press Calendar</li>
+                            <li>Outreach to Editors (Vogue, Elle, etc.)</li>
+                            <li>Earned Media Amplification</li>
+                            <li>Celebrity Gifting & Placement</li>
+                            <li>Tiered Influencer Campaigns</li>
+                            <li>Brand Advocacy Programs</li>
+                        </ul>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg mb-2 text-purple-600">E. Search Engine Optimisation</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Technical SEO Audit & Fixes</li>
+                            <li>Keyword Strategy & Content Hubs</li>
+                            <li>Weekly Blog Content Development</li>
+                            <li>On-Page Optimization</li>
+                            <li>Local SEO (Google My Business)</li>
+                            <li>High-Authority Backlink Strategy</li>
+                            <li>Performance Tracking (SEMrush, Ahrefs)</li>
+                        </ul>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg mb-2 text-purple-600">F. Website Conversion Optimisation <span class="text-sm font-normal">(Optional Add-on)</span></h4>
+                         <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>UX Review & Audit</li>
+                            <li>Checkout Flow Optimization</li>
+                            <li>Behavioral Analytics (Hotjar)</li>
+                            <li>Product Page Enhancements</li>
+                            <li>Exit-Intent Strategies</li>
+                            <li>Speed Optimization</li>
+                            <li>A/B Testing Framework</li>
+                        </ul>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg mb-2 text-purple-600">G. Creative Design & Brand Collateral</h4>
+                         <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Brand Kits & Guidelines</li>
+                            <li>Ad Creatives (Static, Video)</li>
+                            <li>Social Media Templates</li>
+                            <li>Emailers & Lookbooks</li>
+                            <li>Packaging & Offline Assets</li>
+                            <li>Motion Graphics</li>
+                            <li>Photo Retouching & Styling</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deliverables Tab -->
+            <div id="deliverables" class="tab-content">
+                <h2 class="text-3xl font-bold mb-6 text-gray-700">Project Deliverables</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <strong>Monthly Marketing Calendar:</strong> Detailed breakdown of all activities.
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <strong>Monthly Content Production:</strong>
+                        <ul class="list-disc list-inside ml-4 mt-2 text-gray-600">
+                            <li><strong>20-25</strong> Social Media Posts (Static, Carousel, Stories)</li>
+                            <li><strong>8-10</strong> Short-form Videos / Reels</li>
+                            <li><strong>4</strong> SEO-optimized Blog Articles</li>
+                            <li>All necessary ad creatives for campaigns</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <strong>Campaign Management Reports:</strong> Bi-weekly and monthly performance summaries (Meta, Influencer).
+                    </div>
+                     <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <strong>SEO & Website Reports:</strong> Monthly updates on rankings, technical health, and traffic.
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <strong>PR & Influencer Outcome Reports:</strong> Coverage summaries and campaign metrics.
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <strong>Quarterly Strategy Presentations:</strong> Performance review and future roadmap.
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <strong>Content Files & Templates:</strong> Editable design files for internal use.
+                    </div>
+                     <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <strong>Google Data Studio Dashboards:</strong> Real-time campaign tracking dashboards.
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <strong>Compliance & Approvals Log:</strong> Tracked feedback and approvals.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Tab -->
+            <div id="timeline" class="tab-content">
+                <h2 class="text-3xl font-bold mb-8 text-gray-700">Project Timeline</h2>
+                <div class="relative">
+                    <!-- Vertical line -->
+                    <div class="absolute left-4 top-0 h-full w-0.5 bg-gray-200"></div>
+                    <!-- Timeline Items -->
+                    <div class="space-y-12">
+                        <div class="relative pl-12 timeline-item">
+                            <div class="dot"></div>
+                            <span class="absolute -left-1.5 top-2 text-xs font-semibold bg-purple-500 text-white py-1 px-3 rounded-full">Phase 1</span>
+                            <h4 class="font-bold text-xl mb-1 text-purple-600">Discovery & Planning</h4>
+                            <p class="text-sm text-gray-500 font-medium">Weeks 1-2</p>
+                            <p class="text-gray-600 mt-2">Kick-off meetings, stakeholder briefings, comprehensive strategy workshops, and initial content/campaign planning.</p>
+                        </div>
+                        <div class="relative pl-12 timeline-item">
+                            <div class="dot"></div>
+                            <span class="absolute -left-1.5 top-2 text-xs font-semibold bg-purple-500 text-white py-1 px-3 rounded-full">Phase 2</span>
+                            <h4 class="font-bold text-xl mb-1 text-purple-600">Setup & Creative Development</h4>
+                            <p class="text-sm text-gray-500 font-medium">Weeks 3-4</p>
+                            <p class="text-gray-600 mt-2">Production of creative assets (visuals, videos), technical setup of ad accounts and analytics, and finalizing influencer contracts.</p>
+                        </div>
+                        <div class="relative pl-12 timeline-item">
+                            <div class="dot"></div>
+                             <span class="absolute -left-1.5 top-2 text-xs font-semibold bg-purple-500 text-white py-1 px-3 rounded-full">Phase 3</span>
+                            <h4 class="font-bold text-xl mb-1 text-purple-600">Execution & Launch</h4>
+                            <p class="text-sm text-gray-500 font-medium">Month 1-3</p>
+                            <p class="text-gray-600 mt-2">Full campaign rollout across all channels, active media buying, daily social content publishing, and PR outreach execution.</p>
+                        </div>
+                         <div class="relative pl-12 timeline-item border-transparent">
+                            <div class="dot"></div>
+                             <span class="absolute -left-1.5 top-2 text-xs font-semibold bg-purple-500 text-white py-1 px-3 rounded-full">Phase 4</span>
+                            <h4 class="font-bold text-xl mb-1 text-purple-600">Optimisation & Growth</h4>
+                            <p class="text-sm text-gray-500 font-medium">Month 4 onwards</p>
+                            <p class="text-gray-600 mt-2">Continuous performance tracking, A/B testing, budget reallocation based on performance, and conversion rate optimization to scale results.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Tab -->
+            <div id="budget" class="tab-content">
+                <h2 class="text-3xl font-bold mb-6 text-gray-700">Monthly Budget Allocation</h2>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                     <p class="text-center text-gray-600 mb-2">Total Monthly Budget</p>
+                    <p class="text-center text-4xl font-bold text-purple-600 mb-8">₹150,000</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <canvas id="budgetChart"></canvas>
+                        </div>
+                        <div>
+                             <h4 class="font-semibold text-lg mb-4">Service Breakdown:</h4>
+                             <ul class="space-y-3 text-gray-700">
+                                <li class="flex justify-between items-center">
+                                    <span><i class="fas fa-ad text-purple-500 mr-2"></i>Paid Media (Ad Spend)</span>
+                                    <span class="font-bold">₹50,000</span>
+                                </li>
+                                <li class="flex justify-between items-center">
+                                    <span><i class="fas fa-tasks text-purple-500 mr-2"></i>Management & Strategy Retainer</span>
+                                    <span class="font-bold">₹45,000</span>
+                                </li>
+                                <li class="flex justify-between items-center">
+                                    <span><i class="fas fa-users text-purple-500 mr-2"></i>Influencer & PR Gifting/Fees</span>
+                                    <span class="font-bold">₹20,000</span>
+                                </li>
+                                 <li class="flex justify-between items-center">
+                                    <span><i class="fas fa-tools text-purple-500 mr-2"></i>Tools & Software</span>
+                                    <span class="font-bold">₹25,000</span>
+                                </li>
+                                <li class="flex justify-between items-center border-t pt-3 mt-3">
+                                    <span class="font-semibold">Total</span>
+                                    <span class="font-bold text-purple-600">₹150,000</span>
+                                </li>
+                             </ul>
+                             <p class="text-xs text-gray-500 mt-4">*The Management Retainer covers SEO, Social Media Management, Creative Design, Reporting, and Strategy services.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projections Tab -->
+            <div id="projections" class="tab-content">
+                 <h2 class="text-3xl font-bold mb-6 text-gray-700">Expected Quarterly Growth Projections</h2>
+                 <p class="text-gray-600 mb-8 max-w-3xl">Below are the estimated performance improvements we aim to achieve per quarter. These are projections based on the defined scope and budget, and actual results may vary.</p>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Social Media Projections -->
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-hashtag text-3xl text-purple-500 mr-4"></i>
+                            <h4 class="font-bold text-xl text-purple-600">Social Media</h4>
+                        </div>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span><strong>Follower Growth:</strong> 15% - 20% increase</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span><strong>Engagement Rate:</strong> Maintain 3% - 5% on key platforms</span>
+                            </li>
+                             <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span><strong>Quarterly Reach:</strong> 500,000+ impressions</span>
+                            </li>
+                        </ul>
+                    </div>
+                     <!-- Website Traffic Projections -->
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-mouse-pointer text-3xl text-purple-500 mr-4"></i>
+                            <h4 class="font-bold text-xl text-purple-600">Website Traffic</h4>
+                        </div>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span><strong>Overall Traffic:</strong> 25% - 35% increase</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span><strong>Source Growth:</strong> Significant lifts from Organic & Social channels</span>
+                            </li>
+                             <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span><strong>Lead Generation:</strong> 40-50 new qualified leads/inquiries</span>
+                            </li>
+                        </ul>
+                    </div>
+                     <!-- SEO Projections -->
+                    <div class="card bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-search-dollar text-3xl text-purple-500 mr-4"></i>
+                            <h4 class="font-bold text-xl text-purple-600">SEO Results</h4>
+                        </div>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span><strong>Keyword Rankings:</strong> Top 10 ranking for 5-7 primary commercial keywords</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span><strong>Organic Traffic:</strong> 40% - 50% increase</span>
+                            </li>
+                             <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span><strong>Backlinks:</strong> 10-15 new high-quality, relevant backlinks</span>
+                            </li>
+                        </ul>
+                    </div>
+                 </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tab functionality
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    button.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === tabId) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            // Budget Chart
+            const ctx = document.getElementById('budgetChart');
+            if(ctx) {
+                // To prevent chart duplication on re-renders, check if a chart instance already exists
+                let chartStatus = Chart.getChart("budgetChart"); 
+                if (chartStatus != undefined) {
+                  chartStatus.destroy();
+                }
+
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Paid Media (Ad Spend)', 'Management & Strategy Retainer', 'Influencer & PR Gifting/Fees', 'Tools & Software'],
+                        datasets: [{
+                            label: 'Budget Allocation',
+                            data: [50000, 45000, 20000, 25000],
+                            backgroundColor: [
+                                'rgba(192, 132, 252, 0.8)', // purple-400
+                                'rgba(167, 139, 250, 0.8)', // violet-400
+                                'rgba(129, 140, 248, 0.8)', // indigo-400
+                                'rgba(147, 197, 253, 0.8)'  // blue-300
+                            ],
+                             borderColor: [
+                                'rgba(192, 132, 252, 1)',
+                                'rgba(167, 139, 250, 1)',
+                                'rgba(129, 140, 248, 1)',
+                                'rgba(147, 197, 253, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                       responsive: true,
+                       plugins: {
+                           legend: {
+                               position: 'top',
+                           },
+                           tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(context.parsed);
+                                        }
+                                        return label;
+                                    }
+                                }
+                           }
+                       }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
